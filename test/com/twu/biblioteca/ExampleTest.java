@@ -35,6 +35,10 @@ public class ExampleTest {
     public void testListAllBooks() {
         BibliotecaApp bibliotecaApp = new BibliotecaApp();
         bibliotecaApp.listAllBooks();
-        assertEquals("Principles: Life and Work\nWhen Breath Becomes Air\nWhy We Sleep: Unlocking the Power of Sleep and Dreams\n", outContent.toString());
+        assertEquals(
+                "Principles: Life and Work - Ray Dalio, Sep 2017\n" +
+                        "When Breath Becomes Air - Paul Kalanithi & Abraham Verghese, Jan 2016\n" +
+                        "Why We Sleep: Unlocking the Power of Sleep and Dreams - Matthew Walker, Oct 2017\n"
+                , outContent.toString());
     }
 }
