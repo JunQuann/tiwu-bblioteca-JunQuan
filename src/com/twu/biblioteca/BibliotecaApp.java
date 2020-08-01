@@ -1,12 +1,14 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.command.Command;
+import com.twu.biblioteca.command.listAllBooksCommand;
+
 import java.util.Scanner;
 
 public class BibliotecaApp {
-    private final Book[] books = new Book[] {
-        new Book("Principles: Life and Work", "Ray Dalio", "Sep 2017"),
-        new Book("When Breath Becomes Air", "Paul Kalanithi & Abraham Verghese", "Jan 2016"),
-        new Book("Why We Sleep: Unlocking the Power of Sleep and Dreams", "Matthew Walker", "Oct 2017"),
+
+    final Command[] OPTIONS = new Command[] {
+        new listAllBooksCommand()
     };
 
     public static void main(String[] args) {
@@ -20,22 +22,16 @@ public class BibliotecaApp {
         System.out.println("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!");
     }
 
-    public void listAllBooks() {
-        for (Book book : books) {
-            System.out.println(book);
-        }
-    }
-
     public void listOptions() {
-        System.out.println("Please enter their respective number to select one of the following option:\n" +
-                "1. List of books");
+        System.out.println("Please enter their respective number to select one of the following option:");
+        for (int i = 0; i < OPTIONS.length; i++) {
+            System.out.println(i + 1 + ". " + OPTIONS[i]);
+        }
     }
 
     public void selectOption() {
         Scanner sc = new Scanner(System.in);
-        int optionSelected = sc.nextInt();
-        if (optionSelected == 1) {
-            this.listAllBooks();
-        }
+        int selectedOption = sc.nextInt();
+        this.OPTIONS[selectedOption - 1].execute();
     }
 }

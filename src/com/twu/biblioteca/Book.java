@@ -1,9 +1,10 @@
 package com.twu.biblioteca;
 
 public class Book {
-    private String title;
-    private String author;
-    private String yearPublished;
+
+    private final String title;
+    private final String author;
+    private final String yearPublished;
 
     protected Book(String title, String author, String yearPublished) {
         this.title = title;
