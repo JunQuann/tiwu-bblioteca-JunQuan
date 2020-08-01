@@ -1,5 +1,7 @@
 package com.twu.biblioteca;
 
+import java.util.Scanner;
+
 public class BibliotecaApp {
     private final Book[] books = new Book[] {
         new Book("Principles: Life and Work", "Ray Dalio", "Sep 2017"),
@@ -10,7 +12,8 @@ public class BibliotecaApp {
     public static void main(String[] args) {
         BibliotecaApp bibliotecaApp = new BibliotecaApp();
         bibliotecaApp.start();
-        bibliotecaApp.listAllBooks();
+        bibliotecaApp.listOptions();
+        bibliotecaApp.selectOption();
     }
 
     public void start() {
@@ -20,6 +23,19 @@ public class BibliotecaApp {
     public void listAllBooks() {
         for (Book book : books) {
             System.out.println(book);
+        }
+    }
+
+    public void listOptions() {
+        System.out.println("Please enter their respective number to select one of the following option:\n" +
+                "1. List of books");
+    }
+
+    public void selectOption() {
+        Scanner sc = new Scanner(System.in);
+        int optionSelected = sc.nextInt();
+        if (optionSelected == 1) {
+            this.listAllBooks();
         }
     }
 }
