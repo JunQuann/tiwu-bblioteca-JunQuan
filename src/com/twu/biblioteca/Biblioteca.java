@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.exception.BookNotAvailableException;
+import com.twu.biblioteca.exception.BookNotValidException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,12 +34,24 @@ public class Biblioteca {
     public void checkOutBook(String bookTitle) throws BookNotAvailableException {
         Book selectedBook = books.stream()
                 .filter(book -> bookTitle.equals(book.getTitle()) && book.isAvailable())
-                .findAny()
+                .findFirst()
                 .orElse(null);
-        if (selectedBook == null) {
-            throw new BookNotAvailableException("Sorry, that book is not available");
-        } else {
+        if (selectedBook != null) {
             selectedBook.setAvailable(false);
+        } else {
+            throw new BookNotAvailableException("Sorry, that book is not available");
+        }
+    }
+
+    public void returnBook(String bookTitle) throws BookNotValidException {
+        Book selectedBook = books.stream()
+                .filter(book -> bookTitle.equals(book.getTitle()) && !book.isAvailable())
+                .findFirst()
+                .orElse(null);
+        if (selectedBook != null) {
+            selectedBook.setAvailable(true);
+        } else {
+            throw new BookNotValidException("That is not a valid book to return");
         }
     }
 }

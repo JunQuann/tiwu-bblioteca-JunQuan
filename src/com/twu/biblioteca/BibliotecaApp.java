@@ -1,9 +1,6 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.command.CheckOutCommand;
-import com.twu.biblioteca.command.Command;
-import com.twu.biblioteca.command.ListAllBooksCommand;
-import com.twu.biblioteca.command.QuitCommand;
+import com.twu.biblioteca.command.*;
 
 import java.util.Scanner;
 
@@ -14,6 +11,7 @@ public class BibliotecaApp {
     final Command[] OPTIONS = new Command[] {
             new ListAllBooksCommand(),
             new CheckOutCommand(),
+            new ReturnCommand(),
             new QuitCommand()
     };
 

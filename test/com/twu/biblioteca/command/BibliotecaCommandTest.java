@@ -90,4 +90,55 @@ public class BibliotecaCommandTest {
         assertEquals(expectedString.toString(), this.getOutContent());
         assertFalse(selectedBook.isAvailable());
     }
+
+    @Test
+    public void testCheckoutUnavailableBook() {
+        Command checkoutCommand = new CheckOutCommand();
+        StringBuilder expectedString = new StringBuilder();
+        expectedString.append("Please enter the title of book that you will like to checkout:\n\n");
+
+        for (Book book : biblioteca.getBooks()) {
+            if (book.isAvailable()) {
+                expectedString.append(book.toString()).append("\n");
+            }
+        }
+
+        String invalidBook = "Invalid book";
+        provideInput(invalidBook);
+        checkoutCommand.execute();
+
+        expectedString.append("Sorry, that book is not available\n");
+        assertEquals(expectedString.toString(), this.getOutContent());
+    }
+
+    @Test
+    public void testReturnValidBook() {
+        Command returnCommand = new ReturnCommand();
+        StringBuilder expectedString = new StringBuilder();
+        expectedString.append("Please enter the title of the book that you are returning:\n");
+
+        Book selectedBook = biblioteca.getBooks().get(0);
+        selectedBook.setAvailable(false);
+
+        String bookTitle = selectedBook.getTitle();
+        provideInput(bookTitle);
+        returnCommand.execute();
+
+        expectedString.append("Thank you for returning the book\n");
+        assertEquals(expectedString.toString(), this.getOutContent());
+    }
+
+    @Test
+    public void returnInvalidBook() {
+        Command returnCommand = new ReturnCommand();
+        StringBuilder expectedString = new StringBuilder();
+        expectedString.append("Please enter the title of the book that you are returning:\n");
+
+        String invalidBookTitle = "Invalid book";
+        provideInput(invalidBookTitle);
+        returnCommand.execute();
+
+        expectedString.append("That is not a valid book to return\n");
+        assertEquals(expectedString.toString(), this.getOutContent());
+    }
 }
