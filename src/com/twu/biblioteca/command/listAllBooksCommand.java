@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class listAllBooksCommand extends Command {
 
     public listAllBooksCommand() {
+        super();
         this.name = "List all Books";
     }
 

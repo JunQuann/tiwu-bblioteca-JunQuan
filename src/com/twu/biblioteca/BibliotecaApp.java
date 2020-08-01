@@ -2,20 +2,27 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.command.Command;
 import com.twu.biblioteca.command.listAllBooksCommand;
+import com.twu.biblioteca.command.quitCommand;
 
 import java.util.Scanner;
 
 public class BibliotecaApp {
 
+    public static boolean active = true;
+
     final Command[] OPTIONS = new Command[] {
-        new listAllBooksCommand()
+            new listAllBooksCommand(),
+            new quitCommand()
     };
 
     public static void main(String[] args) {
         BibliotecaApp bibliotecaApp = new BibliotecaApp();
         bibliotecaApp.start();
-        bibliotecaApp.listOptions();
-        bibliotecaApp.selectOption();
+
+        while (BibliotecaApp.active) {
+            bibliotecaApp.listOptions();
+            bibliotecaApp.selectOption();
+        }
     }
 
     public void start() {
@@ -34,8 +41,10 @@ public class BibliotecaApp {
         try {
             int selectedOption = sc.nextInt();
             this.OPTIONS[selectedOption - 1].execute();
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Please select a valid option!");
+        } finally {
+            System.out.println();
         }
     }
 }

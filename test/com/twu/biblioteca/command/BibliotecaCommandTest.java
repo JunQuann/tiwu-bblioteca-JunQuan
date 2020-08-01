@@ -1,6 +1,7 @@
 package com.twu.biblioteca.command;
 
 import com.twu.biblioteca.Biblioteca;
+import com.twu.biblioteca.BibliotecaApp;
 import com.twu.biblioteca.Book;
 import org.junit.After;
 import org.junit.Before;
@@ -43,5 +44,12 @@ public class BibliotecaCommandTest {
             expectedString.append(book.toString()).append("\n");
         }
         assertEquals(expectedString.toString(), this.getOutContent());
+    }
+
+    @Test
+    public void testQuit() {
+        Command quitCommand = new quitCommand();
+        quitCommand.execute();
+        assertEquals(false, BibliotecaApp.active);
     }
 }

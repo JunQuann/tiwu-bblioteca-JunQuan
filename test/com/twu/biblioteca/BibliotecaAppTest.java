@@ -62,7 +62,8 @@ public class BibliotecaAppTest {
         bibliotecaApp.selectOption();
         assertEquals("Principles: Life and Work - Ray Dalio, Sep 2017\n" +
                 "When Breath Becomes Air - Paul Kalanithi & Abraham Verghese, Jan 2016\n" +
-                "Why We Sleep: Unlocking the Power of Sleep and Dreams - Matthew Walker, Oct 2017\n"
+                "Why We Sleep: Unlocking the Power of Sleep and Dreams - Matthew Walker, Oct 2017\n" +
+                "\n"
         , this.getOutContent());
     }
 
@@ -71,6 +72,6 @@ public class BibliotecaAppTest {
         String selectedOption = "invalid string";
         this.provideInput(selectedOption);
         bibliotecaApp.selectOption();
-        assertEquals("Please select a valid option!\n", this.getOutContent());
+        assertEquals("Please select a valid option!\n\n", this.getOutContent());
     }
 }
