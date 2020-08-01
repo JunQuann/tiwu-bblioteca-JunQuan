@@ -31,7 +31,11 @@ public class BibliotecaApp {
 
     public void selectOption() {
         Scanner sc = new Scanner(System.in);
-        int selectedOption = sc.nextInt();
-        this.OPTIONS[selectedOption - 1].execute();
+        try {
+            int selectedOption = sc.nextInt();
+            this.OPTIONS[selectedOption - 1].execute();
+        } catch(Exception e) {
+            System.out.println("Please select a valid option!");
+        }
     }
 }

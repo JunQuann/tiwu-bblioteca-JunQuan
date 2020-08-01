@@ -65,4 +65,12 @@ public class BibliotecaAppTest {
                 "Why We Sleep: Unlocking the Power of Sleep and Dreams - Matthew Walker, Oct 2017\n"
         , this.getOutContent());
     }
+
+    @Test
+    public void selectInvalidOption() {
+        String selectedOption = "invalid string";
+        this.provideInput(selectedOption);
+        bibliotecaApp.selectOption();
+        assertEquals("Please select a valid option!\n", this.getOutContent());
+    }
 }
