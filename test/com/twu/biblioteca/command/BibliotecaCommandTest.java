@@ -38,10 +38,10 @@ public class BibliotecaCommandTest {
     public void testListAllBooks() {
         Command listAllBooksCommand = new listAllBooksCommand();
         listAllBooksCommand.execute();
-        String expectedString = "";
+        StringBuilder expectedString = new StringBuilder();
         for (Book book : biblioteca.getBooks()) {
-            expectedString += book.toString() + "\n";
+            expectedString.append(book.toString()).append("\n");
         }
-        assertEquals(expectedString, this.getOutContent());
+        assertEquals(expectedString.toString(), this.getOutContent());
     }
 }

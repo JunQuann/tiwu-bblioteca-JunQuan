@@ -51,7 +51,7 @@ public class BibliotecaAppTest {
         bibliotecaApp.listOptions();
         assertEquals(
                 "Please enter their respective number to select one of the following option:\n" +
-                        "1. List of books\n"
+                        "1. List all Books\n"
         , this.getOutContent());
     }
 
