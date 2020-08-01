@@ -2,7 +2,6 @@ package com.twu.biblioteca.command;
 
 import com.twu.biblioteca.Book;
 
-import java.util.ArrayList;
 
 public class ListAllBooksCommand extends Command {
 
