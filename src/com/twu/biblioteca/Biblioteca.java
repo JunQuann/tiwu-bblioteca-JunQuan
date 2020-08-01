@@ -1,7 +1,10 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.exception.BookNotAvailableException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Biblioteca {
 
@@ -25,5 +28,17 @@ public class Biblioteca {
 
     public ArrayList<Book> getBooks() {
         return books;
+    }
+
+    public void checkOutBook(String bookTitle) throws BookNotAvailableException {
+        Book selectedBook = books.stream()
+                .filter(book -> bookTitle.equals(book.getTitle()) && book.isAvailable())
+                .findAny()
+                .orElse(null);
+        if (selectedBook == null) {
+            throw new BookNotAvailableException("Sorry, that book is not available");
+        } else {
+            selectedBook.setAvailable(false);
+        }
     }
 }

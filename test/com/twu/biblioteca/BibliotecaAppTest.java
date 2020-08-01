@@ -15,7 +15,6 @@ public class BibliotecaAppTest {
     private final PrintStream originalOut = System.out;
 
     private ByteArrayOutputStream outContent;
-    private ByteArrayInputStream inContent;
 
     @Before
     public void setUp() {
@@ -25,7 +24,7 @@ public class BibliotecaAppTest {
     }
 
     private void provideInput(String input) {
-        inContent = new ByteArrayInputStream(input.getBytes());
+        ByteArrayInputStream inContent = new ByteArrayInputStream(input.getBytes());
         System.setIn(inContent);
     }
 
@@ -42,7 +41,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testWelcomeMessage() {
-        bibliotecaApp.start();
+        bibliotecaApp.welcomeMessage();
         assertEquals("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!\n", this.getOutContent());
     }
 
@@ -51,7 +50,8 @@ public class BibliotecaAppTest {
         bibliotecaApp.listOptions();
         assertEquals(
                 "Please enter their respective number to select one of the following option:\n" +
-                        "1. List all Books\n"
+                        "1. List all Books\n" +
+                        "2. Quit\n"
         , this.getOutContent());
     }
 

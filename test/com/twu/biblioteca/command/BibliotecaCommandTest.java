@@ -7,13 +7,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class BibliotecaCommandTest {
     private final PrintStream originalOut = System.out;
+    private final InputStream originalIn = System.in;
 
     private ByteArrayOutputStream outContent;
     private Biblioteca biblioteca;
@@ -25,6 +30,11 @@ public class BibliotecaCommandTest {
         System.setOut(new PrintStream(outContent));
     }
 
+    private void provideInput(String input) {
+        ByteArrayInputStream inContent = new ByteArrayInputStream(input.getBytes());
+        System.setIn(inContent);
+    }
+
     private String getOutContent() {
         return outContent.toString();
     }
@@ -32,24 +42,52 @@ public class BibliotecaCommandTest {
     @After
     public void tearDown() {
         biblioteca = null;
+        System.setIn(originalIn);
         System.setOut(originalOut);
     }
 
     @Test
     public void testListAllBooks() {
-        Command listAllBooksCommand = new listAllBooksCommand();
+        Command listAllBooksCommand = new ListAllBooksCommand();
         listAllBooksCommand.execute();
         StringBuilder expectedString = new StringBuilder();
+
         for (Book book : biblioteca.getBooks()) {
-            expectedString.append(book.toString()).append("\n");
+            if (book.isAvailable()) {
+                expectedString.append(book.toString()).append("\n");
+            }
         }
+
         assertEquals(expectedString.toString(), this.getOutContent());
     }
 
     @Test
     public void testQuit() {
-        Command quitCommand = new quitCommand();
+        Command quitCommand = new QuitCommand();
         quitCommand.execute();
-        assertEquals(false, BibliotecaApp.active);
+        assertFalse(BibliotecaApp.active);
+    }
+
+    @Test
+    public void testCheckoutAvailableBooks() {
+        ArrayList<Book> books = biblioteca.getBooks();
+        Command checkoutCommand = new CheckOutCommand();
+        StringBuilder expectedString = new StringBuilder();
+        expectedString.append("Please enter the title of book that you will like to checkout:\n\n");
+
+        for (Book book : biblioteca.getBooks()) {
+            if (book.isAvailable()) {
+                expectedString.append(book.toString()).append("\n");
+            }
+        }
+
+        Book selectedBook = books.get(0);
+        provideInput(selectedBook.getTitle());
+
+        expectedString.append("Thank you! Enjoy the book\n");
+
+        checkoutCommand.execute();
+        assertEquals(expectedString.toString(), this.getOutContent());
+        assertFalse(selectedBook.isAvailable());
     }
 }

@@ -2,9 +2,9 @@ package com.twu.biblioteca.command;
 
 import com.twu.biblioteca.BibliotecaApp;
 
-public class quitCommand extends Command {
+public class QuitCommand extends Command {
 
-    public quitCommand() {
+    public QuitCommand() {
         super();
         this.name = "Quit";
     }

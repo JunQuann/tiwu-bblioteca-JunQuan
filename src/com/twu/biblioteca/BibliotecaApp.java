@@ -1,8 +1,9 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.command.CheckOutCommand;
 import com.twu.biblioteca.command.Command;
-import com.twu.biblioteca.command.listAllBooksCommand;
-import com.twu.biblioteca.command.quitCommand;
+import com.twu.biblioteca.command.ListAllBooksCommand;
+import com.twu.biblioteca.command.QuitCommand;
 
 import java.util.Scanner;
 
@@ -11,21 +12,25 @@ public class BibliotecaApp {
     public static boolean active = true;
 
     final Command[] OPTIONS = new Command[] {
-            new listAllBooksCommand(),
-            new quitCommand()
+            new ListAllBooksCommand(),
+            new CheckOutCommand(),
+            new QuitCommand()
     };
 
     public static void main(String[] args) {
         BibliotecaApp bibliotecaApp = new BibliotecaApp();
         bibliotecaApp.start();
-
-        while (BibliotecaApp.active) {
-            bibliotecaApp.listOptions();
-            bibliotecaApp.selectOption();
-        }
     }
 
     public void start() {
+        this.welcomeMessage();
+        while (BibliotecaApp.active) {
+            this.listOptions();
+            this.selectOption();
+        }
+    }
+
+    public void welcomeMessage() {
         System.out.println("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!");
     }
 
