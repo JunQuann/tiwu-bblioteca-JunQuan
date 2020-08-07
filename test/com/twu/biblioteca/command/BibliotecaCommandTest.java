@@ -129,7 +129,7 @@ public class BibliotecaCommandTest {
     }
 
     @Test
-    public void returnInvalidBook() {
+    public void testReturnInvalidBook() {
         Command returnCommand = new ReturnCommand();
         StringBuilder expectedString = new StringBuilder();
         expectedString.append("Please enter the title of the book that you are returning:\n");
